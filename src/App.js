@@ -1,15 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
-
+import { useEffect } from 'react';
+import BalanceAndChartPage from './components/BalanceAndChartPage';
+import BalanceChart from './components/BalanceChart';
+import CurrentBalance from './components/CurrentBalance';
 function App() {
+
+
+  useEffect(() => {
+  },[]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        Hello World!
-      </header>
+    <div id="My-Balance-App" className="App">
+      <h1>My Balance App</h1>
+      <BalanceAndChartPage />
+
     </div>
-  );
+  ); 
 }
 
 export default App;
