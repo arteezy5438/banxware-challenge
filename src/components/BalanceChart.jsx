@@ -10,26 +10,26 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const BalanceChart = ({ transactions }) => {
-  const [dayCount, setDayCount] = useState(5);
+const BalanceChart = ({transactions}) => {
 
+  const [dayCount, setDayCount] = useState(30);
   const [transcationList, setTranscationList] = useState([]);
 
   useEffect(() => {
     let transcationListTemp = [];
     if (dayCount) {
       for (
-        let i = transactions.length - dayCount - 1;
-        i < transactions.length;
+        let i = 0;
+        i < dayCount;
         i++
       ) {
         transcationListTemp.push(transactions[i]);
-      }
-
-      setTranscationList(transcationListTemp);
+      }  
     } else {
-      setTranscationList(transactions);
+      transcationListTemp = [...transactions];
     }
+
+    setTranscationList(transcationListTemp.sort((a, b) => a.date - b.date));
   }, [dayCount, transactions]);
 
   return (
@@ -61,13 +61,13 @@ const BalanceChart = ({ transactions }) => {
         <LineChart data={transcationList} margin={{ right: 300 }}>
           <CartesianGrid />
           <XAxis dataKey="dateStr" interval={"preserveStartEnd"} />
-          <YAxis domain={[6000, 14000]} tickCount={9}></YAxis>
+          <YAxis domain={[0, 18000]} tickCount={9}></YAxis>
           <Legend />
           <Tooltip />
           <Line dataKey="currentBalance" stroke="black" activeDot={{ r: 8 }} />
         </LineChart>
       </ResponsiveContainer>
-      {console.log(transactions)}
+     
       {transactions &&
         transactions.map((item) => {
           return (
@@ -80,6 +80,7 @@ const BalanceChart = ({ transactions }) => {
               <div>{item.currentBalance}</div>
               <div>{item.status}</div>
             </div>
+            
           );
         })}
     </div>
